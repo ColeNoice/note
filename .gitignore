@@ -1,0 +1,27 @@
+# Obsidian
+.obsidian/workspace*
+.obsidian/workspace.json
+.obsidian/cache
+.trash/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Node (if using any scripts)
+node_modules/
+npm-debug.log
+package-lock.json

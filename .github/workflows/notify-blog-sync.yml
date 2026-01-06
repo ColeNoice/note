@@ -1,0 +1,35 @@
+name: 通知博客同步
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '**.md'
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 触发博客仓库同步
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          repository: ${{ github.repository_owner }}/blog
+          event-type: sync-articles
+          client-payload: |
+            {
+              "note_repo": "${{ github.repository }}",
+              "note_commit": "${{ github.sha }}",
+              "triggered_by": "${{ github.actor }}",
+              "timestamp": "${{ github.event.head_commit.timestamp }}"
+            }
+
+      - name: 同步通知完成
+        run: |
+          echo "✓ 已触发博客仓库同步"
+          echo "提交: ${{ github.sha }}"
+          echo "触发者: ${{ github.actor }}"
